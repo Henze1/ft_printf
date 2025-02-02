@@ -21,13 +21,13 @@ NAME = libftprintf.a
 all: $(NAME)
 
 $(NAME): $(OBJ)
-	@make -C $(LIBFT)
-	@cp $(Libft)/libft.a .
-	@cp libft.a $(NAME)
+	make -C $(LIBFT)
+	cp Libft/libft.a .
+	cp libft.a $(NAME)
 	$(AR) $(NAME) $(OBJ)
 
 %.o: %.c ft_printf.h
-	@$(CC) -c $(CFLAGS) $^
+	$(CC) -c $(CFLAGS) $^
 
 clean:
 	rm -f $(OBJ)

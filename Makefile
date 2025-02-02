@@ -4,25 +4,30 @@ CFLAGS = -Wall -Wextra -Werror
 
 AR = ar rcs
 
+LIBFT = Libft
+
 SRC = ft_printaddr.c \
 	ft_printchar.c \
 	ft_printf.c \
 	ft_printstring.c \
+	ft_printdecimal.c \
+	ft_printunsigned.c \
+	ft_printhexadecimal.c \
 
 OBJ = $(SRC:.c=.o)
 
 NAME = libftprintf.a
 
 all: $(NAME)
-	@$(CC) $(CFLAGS) $(SRC) -o start
-	@./start
-	@rm -r start
 
 $(NAME): $(OBJ)
+	@make -C $(LIBFT)
+	@cp $(Libft)/libft.a .
+	@cp libft.a $(NAME)
 	$(AR) $(NAME) $(OBJ)
 
 %.o: %.c ft_printf.h
-	$(CC) -c $(CFLAGS) $^
+	@$(CC) -c $(CFLAGS) $^
 
 clean:
 	rm -f $(OBJ)

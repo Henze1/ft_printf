@@ -12,42 +12,29 @@
 
 #include "ft_printf.h"
 
-static int	write_hex(void *p);
-
-int	ft_printaddr(void *p)
+int	ft_printhexadecimal(unsigned int n, char f)
 {
-	int	len;
+	int		i;
+	int		len;
+	char	numarr[16];
 
-	len = 0;
-	if (!p)
-		len += ft_printstring("(nil)");
-	else
-	{
-		len += ft_printchar('0');
-		len += ft_printchar('x');
-		len += write_hex(p);
-	}
-	return (len);
-}
-
-static int	write_hex(void *p)
-{
-	int					i;
-	int					len;
-	unsigned long long	ptr;
-	char				numarr[16];
-
+	if (!n)
+		return (ft_printchar('0'));
 	i = 0;
 	len = 0;
-	ptr = (unsigned long long)p;
-	while (ptr)
+	while (n)
 	{
-		if (ptr % 16 >= 10)
-			numarr[i++] = ptr % 16 - 10 + 'a';
+		if (n % 16 >= 10)
+		{
+			if (f == 'x')
+				numarr[i++] = n % 16 - 10 + 'a';
+			else
+				numarr[i++] = n % 16 - 10 + 'A';
+		}
 		else
-			numarr[i++] = ptr % 16 + '0';
+			numarr[i++] = n % 16 + '0';
 		++len;
-		ptr /= 16;
+		n /= 16;
 	}
 	while (i--)
 		ft_printchar(numarr[i]);
